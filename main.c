@@ -80,7 +80,7 @@
 	}
 
 	void init() {
-		mvprintw(maxY / 2 -2, maxX / 2, "Press any key to start.");
+		mvprintw(maxY / 2, maxX / 2 - 8, "Press any key to start.");
 		getch();
 		sleep(2);
 		srand(time(NULL));
@@ -114,26 +114,22 @@
 	void shiftSnake() {
 		point tmp = snakeParts[tailLength - 1];
 
-		for(int i = tailLength - 1; i > 0; i--) {
+		for(int i = tailLength - 1; i > 0; i--)
 			snakeParts[i] = snakeParts[i-1];
-		}
 
 		snakeParts[0] = tmp;
 	}
 
 	void drawScreen() {
-		//Clears the screen - put all draw functions after this
 		clear(); 
 
 		//Print game over if gameOver is true
-		if(gameOver){
+		if(gameOver)
 			mvprintw(maxY / 2, maxX / 2, "Game Over!");
-            }
 
 		//Draw the snake to the screen
-		for(int i = 0; i < tailLength; i++) {
+		for(int i = 0; i < tailLength; i++)
 			drawPart(snakeParts[i], clr);
-		}
 
 		//Draw the current food
 		drawPartFood(food, clr);
@@ -166,25 +162,23 @@
 			/* Input Handler */
 				ch = getch();
 
-				if(( ch=='l' || ch=='L' || ch == KEY_RIGHT) && (currentDir != RIGHT && currentDir != LEFT)) {
+				if(( ch=='l' || ch=='L' || ch == KEY_RIGHT) && (currentDir != RIGHT && currentDir != LEFT))
 					currentDir = RIGHT;
-				} else if (( ch=='h' || ch=='H' || ch == KEY_LEFT) && (currentDir != RIGHT && currentDir != LEFT)) {
+				else if (( ch=='h' || ch=='H' || ch == KEY_LEFT) && (currentDir != RIGHT && currentDir != LEFT))
 					currentDir = LEFT;
-				} else if((ch=='j' || ch=='J' || ch == KEY_DOWN) && (currentDir != UP && currentDir != DOWN)) {
+				else if((ch=='j' || ch=='J' || ch == KEY_DOWN) && (currentDir != UP && currentDir != DOWN))
 					currentDir = DOWN;
-				} else if((ch=='k' || ch=='K' || ch == KEY_UP) && (currentDir != UP && currentDir != DOWN)) {
+				else if((ch=='k' || ch=='K' || ch == KEY_UP) && (currentDir != UP && currentDir != DOWN))
 					currentDir = UP;
-				}
 				else if(ch == '-' && DELAY < 150000)
 					DELAY += 30000; 
 				else if((ch == '=' || ch == '+') && DELAY > 30000 )
 					DELAY -= 30000;
-                else if(ch == 'p'){
-                        printf("\nPress any key to resume.");
-                        ch == getchar();
-                }
+                else if(ch == 'p')
+                    {printf("\nPress any key to resume.");
+                    ch == getchar();}
                 else if (ch == 'c')
-                        clr = !clr;
+                    clr = !clr;
 
 			/* Movement */
 				nextX = snakeParts[0].x;
