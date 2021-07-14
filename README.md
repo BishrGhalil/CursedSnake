@@ -2,8 +2,8 @@
 Made for linux using the ncurses library.
 ### install
 ```
-git clone https://github.com/BishrGhalil/CursesSnake.git
-cd CursesSnake
+git clone https://github.com/BishrGhalil/CursedSnake.git
+cd CursedSnake
 make
 sudo ln -s snake /bin/snake
 ```
