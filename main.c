@@ -4,7 +4,6 @@
 #include <stdlib.h>
 
 #define TIMEOUT 10 
-
 /* Global Vars */
 	typedef enum {
 		LEFT,
@@ -28,7 +27,8 @@
 		tailLength = 3,
 		score = 0;
 
-	bool gameOver = false;
+	bool gameOver = false,
+         clr = true;
 
 	direction_type currentDir = RIGHT;
 	point snakeParts[255] = {};
@@ -43,11 +43,28 @@
 		food.y = (rand() % (maxY - 10)) + 5;
 	}
 	
-	void drawPart(point drawPoint) {
-		mvprintw(drawPoint.y, drawPoint.x, "*");
+	void drawPart(point drawPoint, bool clr) {
+        if(has_colors() && clr){
+            start_color();
+			init_pair(2, COLOR_GREEN, COLOR_GREEN);
+			attron(COLOR_PAIR(2));
+		    mvprintw(drawPoint.y, drawPoint.x, "*");
+			attroff(COLOR_PAIR(2));
+
+        }
+        else
+		    mvprintw(drawPoint.y, drawPoint.x, "*");
 	}
-    void drawPartFood(point drawPoint) {
-		mvprintw(drawPoint.y, drawPoint.x, "$");
+    void drawPartFood(point drawPoint, bool clr) {
+		if(has_colors() && clr){
+			start_color();
+			init_pair(1, COLOR_RED, COLOR_RED);
+			attron(COLOR_PAIR(1));
+			mvprintw(drawPoint.y, drawPoint.x, "$");
+			attroff(COLOR_PAIR(1));
+		}
+		else 
+			mvprintw(drawPoint.y, drawPoint.x, "$");
 	}
 
 	void cursesInit() {
@@ -63,7 +80,7 @@
 	}
 
 	void init() {
-		mvprintw(maxY / 2, maxX / 2, "Press any key to start.");
+		mvprintw(maxY / 2 -2, maxX / 2, "Press any key to start.");
 		getch();
 		sleep(2);
 		srand(time(NULL));
@@ -115,11 +132,11 @@
 
 		//Draw the snake to the screen
 		for(int i = 0; i < tailLength; i++) {
-			drawPart(snakeParts[i]);
+			drawPart(snakeParts[i], clr);
 		}
 
 		//Draw the current food
-		drawPartFood(food);
+		drawPartFood(food, clr);
 
 		//Draw the score
 		mvprintw(1, 2, "Score: %i\tSpeed: %i", score, 100 - (DELAY / 1000));
@@ -162,6 +179,12 @@
 					DELAY += 30000; 
 				else if((ch == '=' || ch == '+') && DELAY > 30000 )
 					DELAY -= 30000;
+                else if(ch == 'p'){
+                        printf("\nPress any key to resume.");
+                        ch == getchar();
+                }
+                else if (ch == 'c')
+                        clr = !clr;
 
 			/* Movement */
 				nextX = snakeParts[0].x;

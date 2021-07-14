@@ -7,3 +7,7 @@ cd CursesSnake
 make
 sudo ln -s snake /bin/snake
 ```
+### Features
+1. Pause by pressing P.
+2. Start or stop colors by pressing C.
+3. Speed up or down by pressing + or -.
