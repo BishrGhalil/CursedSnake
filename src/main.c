@@ -84,6 +84,7 @@
 		getch();
 		sleep(2);
 		srand(time(NULL));
+        use_default_colors();
 
 		currentDir = RIGHT;
 		tailLength = 3;
@@ -175,8 +176,10 @@
 				else if((ch == '=' || ch == '+') && DELAY > 30000 )
 					DELAY -= 30000;
                 else if(ch == 'p')
-                    {printf("\nPress any key to resume.");
-                    ch == getchar();}
+                    {
+                            printf("\nPress any key to resume.");
+                            getchar();
+                    }
                 else if (ch == 'c')
                     clr = !clr;
 

@@ -4,8 +4,7 @@ Made for linux using the ncurses library.
 ```
 git clone https://github.com/BishrGhalil/CursedSnake.git
 cd CursedSnake
-make
-sudo ln -s snake /bin/snake
+sudo make
 ```
 ### Run
 ```
